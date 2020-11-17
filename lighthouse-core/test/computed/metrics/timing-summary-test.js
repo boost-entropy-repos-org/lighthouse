@@ -19,7 +19,7 @@ describe('Timing summary', () => {
     expect(result.metrics).toMatchInlineSnapshot(`
       Object {
         "cumulativeLayoutShift": 0,
-        "estimatedInputLatency": 77.79999999999995,
+        "estimatedInputLatency": 80.93333333333328,
         "estimatedInputLatencyTs": undefined,
         "firstCPUIdle": 3351.3320000492963,
         "firstCPUIdleTs": undefined,
@@ -59,7 +59,7 @@ describe('Timing summary', () => {
         "observedTraceEndTs": 225426711887,
         "speedIndex": 1676.1335047609864,
         "speedIndexTs": undefined,
-        "totalBlockingTime": 726.4774999940994,
+        "totalBlockingTime": 776.9999999999995,
       }
     `);
     // Includes performance metrics
