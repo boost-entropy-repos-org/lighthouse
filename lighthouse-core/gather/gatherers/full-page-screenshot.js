@@ -61,11 +61,11 @@ class FullPageScreenshot {
     // The lower in the page, the more likely (footer elements especially).
     // https://github.com/GoogleChrome/lighthouse/issues/11118
 
-    const result = await driver.sendCommand('Page.captureScreenshot', {
-      format: 'jpeg',
-      quality: FULL_PAGE_SCREENSHOT_QUALITY,
-    });
-    const data = 'data:image/jpeg;base64,' + result.data;
+    // const result = await driver.sendCommand('Page.captureScreenshot', {
+    //   format: 'jpeg',
+    //   quality: FULL_PAGE_SCREENSHOT_QUALITY,
+    // });
+    const data = 'data:image/jpeg;base64,'// + result.data;
 
     return {
       width,
