@@ -45,8 +45,6 @@ jobs:
     - run: yarn build-devtools
       working-directory: ${{ github.workspace }}/lighthouse
 
-    - run: sudo apt-get install xvfb
-
     - name: Download depot tools
       run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/download-depot-tools.sh
     - name: Download DevTools Frontend
@@ -57,7 +55,7 @@ jobs:
       run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/download-content-shell.sh
 
     - name: Run Web Tests
-      run: xvfb-run --auto-servernum bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/run-web-tests.sh
+      run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/run-web-tests.sh
 
     - name: Print diff
       if: failure()
