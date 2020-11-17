@@ -55,7 +55,10 @@ jobs:
       run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/download-content-shell.sh
 
     - name: Run Web Tests
-      run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/run-web-tests.sh
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        # working-directory: ./ #optional
+        run: bash $GITHUB_WORKSPACE/lighthouse/lighthouse-core/test/chromium-web-tests/run-web-tests.sh
 
     - name: Print diff
       if: failure()
