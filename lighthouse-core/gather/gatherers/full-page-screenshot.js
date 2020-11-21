@@ -7,6 +7,7 @@
 
 /* globals window getBoundingClientRect */
 
+const Gatherer = require('./gatherer.js');
 const pageFunctions = require('../../lib/page-functions.js');
 
 // JPEG quality setting
@@ -24,7 +25,7 @@ function snakeCaseToCamelCase(str) {
   return str.replace(/(-\w)/g, m => m[1].toUpperCase());
 }
 
-class FullPageScreenshot {
+class FullPageScreenshot extends Gatherer {
   /**
    * @param {LH.Gatherer.PassContext} passContext
    * @param {number} maxScreenshotHeight

@@ -14,7 +14,6 @@ const NetworkRecorder = require('../lib/network-recorder.js');
 const constants = require('../config/constants.js');
 const i18n = require('../lib/i18n/i18n.js');
 const URL = require('../lib/url-shim.js');
-const FullPageScreenshotGatherer = require('./gatherers/full-page-screenshot.js');
 
 const UIStrings = {
   /**
@@ -527,7 +526,6 @@ class GatherRunner {
 
     return {
       fetchTime: (new Date()).toJSON(),
-      FullPageScreenshot: null, // updated later
       LighthouseRunWarnings: [],
       TestedAsMobileDevice,
       HostFormFactor,
@@ -581,22 +579,6 @@ class GatherRunner {
   }
 
   /**
-   * Creates an Artifacts.FullPageScreenshot.
-   * @param {LH.Gatherer.PassContext} passContext
-   * @return {Promise<LH.BaseArtifacts['FullPageScreenshot']>}
-   */
-  static async getFullpageScreenshot(passContext) {
-    const status = {msg: 'Capture full-page screenshot', id: 'lh:gather:getFullpageScreenshot'};
-    log.time(status);
-
-    const gatherer = new FullPageScreenshotGatherer();
-    const artifact = await gatherer.afterPass(passContext);
-
-    log.timeEnd(status);
-    return artifact;
-  }
-
-  /**
    * Populates the important base artifacts from a fully loaded test page.
    * Currently must be run before `start-url` gatherer so that `WebAppManifest`
    * will be available to it.
@@ -634,8 +616,6 @@ class GatherRunner {
       // @ts-expect-error - guaranteed to exist by the find above
       baseArtifacts.NetworkUserAgent = userAgentEntry.params.request.headers['User-Agent'];
     }
-
-    baseArtifacts.FullPageScreenshot = await this.getFullpageScreenshot(passContext);
   }
 
   /**
