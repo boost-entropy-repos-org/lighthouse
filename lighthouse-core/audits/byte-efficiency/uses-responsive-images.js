@@ -118,7 +118,7 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
       if (!image.resourceSize || image.mimeType === 'image/svg+xml' || image.isCss) {
         continue;
       }
-      
+
       // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
       if (!image.naturalWidth || !image.naturalHeight) continue;
 
