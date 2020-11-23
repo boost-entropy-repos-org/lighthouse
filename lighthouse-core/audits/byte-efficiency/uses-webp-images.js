@@ -54,8 +54,8 @@ class UsesWebPImages extends ByteEfficiencyAudit {
    * @return {number}
    */
   static estimateWebPSizeFromDimensions(imageElement) {
-    // eslint-disable-line max-len
-    const totalPixels = imageElement.naturalWidth && imageElement.naturalHeight ? imageElement.naturalWidth * imageElement.naturalHeight : 0;
+    // @ts-ignore - TS warns that naturalWidth and naturalHeight can be undefined, checked on L100.
+    const totalPixels = imageElement.naturalWidth * imageElement.naturalHeight;
     // See uses-optimized-images for the rationale behind our 2 byte-per-pixel baseline and
     // JPEG compression ratio of 8:1.
     // WebP usually gives ~20% additional savings on top of that, so we will use 10:1.
@@ -95,6 +95,9 @@ class UsesWebPImages extends ByteEfficiencyAudit {
           warnings.push(`Unable to locate resource ${URL.getURLDisplayName(image.url)}`);
           continue;
         }
+
+        // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
+        if (!imageElement.naturalWidth || !imageElement.naturalHeight) continue;
 
         webpSize = UsesWebPImages.estimateWebPSizeFromDimensions(imageElement);
         fromProtocol = false;

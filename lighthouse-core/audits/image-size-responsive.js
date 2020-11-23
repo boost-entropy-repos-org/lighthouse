@@ -68,7 +68,7 @@ function isCandidate(image) {
   if (image.displayedWidth <= 1 || image.displayedHeight <= 1) {
     return false;
   }
-  if (image.naturalWidth === 0 || image.naturalHeight === 0) {
+  if (!image.naturalWidth || !image.naturalHeight) {
     return false;
   }
   if (image.mimeType === 'image/svg+xml') {
@@ -97,8 +97,8 @@ function isCandidate(image) {
 function imageHasRightSize(image, DPR) {
   const [expectedWidth, expectedHeight] =
       allowedImageSize(image.displayedWidth, image.displayedHeight, DPR);
-  return !!image.naturalWidth && image.naturalWidth >= expectedWidth &&
-         !!image.naturalHeight && image.naturalHeight >= expectedHeight;
+  // @ts-ignore - TS warns that naturalWidth and naturalHeight can be undefined, checked in L220.
+  return image.naturalWidth >= expectedWidth && image.naturalHeight >= expectedHeight;
 }
 
 /**
@@ -114,8 +114,8 @@ function getResult(image, DPR) {
     elidedUrl: URL.elideDataURI(image.src),
     displayedSize: `${image.displayedWidth} x ${image.displayedHeight}`,
     actualSize: `${image.naturalWidth} x ${image.naturalHeight}`,
-    // eslint-disable-next-line max-len
-    actualPixels: image.naturalWidth && image.naturalHeight ? image.naturalWidth * image.naturalHeight : 0,
+    // @ts-ignore - TS warns that naturalWidth and naturalHeight can be undefined, checked in L220.
+    actualPixels: image.naturalWidth * image.naturalHeight,
     expectedSize: `${expectedWidth} x ${expectedHeight}`,
     expectedPixels: expectedWidth * expectedHeight,
   };

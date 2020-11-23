@@ -64,8 +64,8 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
     if (!usedPixels) {
       const viewportWidth = ViewportDimensions.innerWidth;
       const viewportHeight = ViewportDimensions.innerHeight * 2;
-      // eslint-disable-line max-len
-      const imageAspectRatio = image.naturalWidth && image.naturalHeight ? image.naturalWidth / image.naturalHeight : 0;
+      // @ts-ignore TS warns that naturalWidth and naturalHeight can be undefined, checked on L123.
+      const imageAspectRatio = image.naturalWidth / image.naturalHeight;
       const viewportAspectRatio = viewportWidth / viewportHeight;
       let usedViewportWidth = viewportWidth;
       let usedViewportHeight = viewportHeight;
@@ -80,8 +80,8 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
     }
 
     const url = URL.elideDataURI(image.src);
-    // eslint-disable-line max-len
-    const actualPixels = image.naturalWidth && image.naturalHeight ? image.naturalWidth * image.naturalHeight : 0;
+    // @ts-ignore TS warns that naturalWidth and naturalHeight can be undefined, checked on L123.
+    const actualPixels = image.naturalWidth * image.naturalHeight;
     const wastedRatio = 1 - (usedPixels / actualPixels);
     const totalBytes = image.resourceSize;
     const wastedBytes = Math.round(totalBytes * wastedRatio);
@@ -118,6 +118,9 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
       if (!image.resourceSize || image.mimeType === 'image/svg+xml' || image.isCss) {
         continue;
       }
+      
+      // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
+      if (!image.naturalWidth || !image.naturalHeight) continue;
 
       const processed = UsesResponsiveImages.computeWaste(image, ViewportDimensions);
       if (!processed) continue;

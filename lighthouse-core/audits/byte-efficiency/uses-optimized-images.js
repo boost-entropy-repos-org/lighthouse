@@ -54,8 +54,8 @@ class UsesOptimizedImages extends ByteEfficiencyAudit {
    * @return {number}
    */
   static estimateJPEGSizeFromDimensions(imageElement) {
-    // eslint-disable-next-line max-len
-    const totalPixels = imageElement.naturalWidth && imageElement.naturalHeight ? imageElement.naturalWidth * imageElement.naturalHeight : 0;
+    // @ts-ignore - TS warns that naturalWidth and naturalHeight can be undefined, checked on L100.
+    const totalPixels = imageElement.naturalWidth * imageElement.naturalHeight;
     // Even JPEGs with lots of detail can usually be compressed down to <1 byte per pixel
     // Using 4:2:2 subsampling already gets an uncompressed bitmap to 2 bytes per pixel.
     // The compression ratio for JPEG is usually somewhere around 10:1 depending on content, so
@@ -97,6 +97,9 @@ class UsesOptimizedImages extends ByteEfficiencyAudit {
           continue;
         }
 
+        // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
+        if (!imageElement.naturalHeight || !imageElement.naturalWidth) continue;
+        
         jpegSize = UsesOptimizedImages.estimateJPEGSizeFromDimensions(imageElement);
         fromProtocol = false;
       }
