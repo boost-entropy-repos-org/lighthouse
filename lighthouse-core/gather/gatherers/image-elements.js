@@ -79,15 +79,11 @@ function getHTMLImages(allElements) {
       // @ts-expect-error: loading attribute not yet added to HTMLImageElement definition.
       loading: element.loading,
       resourceSize: 0, // this will get overwritten below
-      ObjectFit: ['cover', 'contain', 'scale-down', 'none'].includes(
-        computedStyle.getPropertyValue('object-fit')
-      ) ? computedStyle.getPropertyValue('object-fit') : '',
-      PixelArtScaling: ['pixelated', 'crisp-edges'].includes(
-        computedStyle.getPropertyValue('image-rendering')
-      ) ? computedStyle.getPropertyValue('image-rendering') : '',
+      ObjectFit: computedStyle.getPropertyValue('object-fit'),
+      PixelArtScaling: computedStyle.getPropertyValue('image-rendering'),
       isInShadowDOM: element.getRootNode() instanceof ShadowRoot,
       // https://html.spec.whatwg.org/multipage/images.html#pixel-density-descriptor
-      SrcSetDensityDescriptor: / \d+(\.\d+)?x/.test(element.srcset) ? element.srcset : '',
+      SrcSetDensityDescriptor: element.srcset,
       // @ts-expect-error - getNodeDetails put into scope via stringification
       ...getNodeDetails(element),
     };
@@ -134,9 +130,7 @@ function getCSSImages(allElements) {
       isPicture: false,
       isInShadowDOM: element.getRootNode() instanceof ShadowRoot,
       ObjectFit: '',
-      PixelArtScaling: ['pixelated', 'crisp-edges'].includes(
-        style.getPropertyValue('image-rendering')
-      ) ? style.getPropertyValue('image-rendering') : '',
+      PixelArtScaling: style.getPropertyValue('image-rendering'),
       SrcSetDensityDescriptor: '',
       resourceSize: 0, // this will get overwritten below
       // @ts-expect-error - getNodeDetails put into scope via stringification

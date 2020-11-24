@@ -92,6 +92,7 @@ class ImageAspectRatio extends Audit {
     const warnings = [];
     /** @type {Array<{url: string, displayedAspectRatio: string, actualAspectRatio: string, doRatiosMatch: boolean}>} */
     const results = [];
+    const reqObjectFitProperties = ['cover', 'contain', 'scale-down', 'none'];
     images.filter(image => {
       // - filter out css background images since we don't have a reliable way to tell if it's a
       //   sprite sheet, repeated for effect, etc
@@ -105,7 +106,7 @@ class ImageAspectRatio extends Audit {
         image.naturalWidth > 5 &&
         image.displayedWidth &&
         image.displayedHeight &&
-        !image.ObjectFit;
+        !reqObjectFitProperties.includes(image.ObjectFit);
     }).forEach(image => {
       const wellDefinedImage = /** @type {WellDefinedImage} */ (image);
       const processed = ImageAspectRatio.computeAspectRatios(wellDefinedImage);

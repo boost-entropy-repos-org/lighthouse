@@ -65,6 +65,9 @@ function isVisible(imageRect, viewportDimensions) {
  * @return {boolean}
  */
 function isCandidate(image) {
+  const reqObjectFitProperties = ['cover', 'contain', 'scale-down', 'none'];
+  const reqPixelScaling = ['pixelated', 'crisp-edges'];
+  const srcSetPattern = / \d+(\.\d+)?x/;
   if (image.displayedWidth <= 1 || image.displayedHeight <= 1) {
     return false;
   }
@@ -77,13 +80,13 @@ function isCandidate(image) {
   if (image.isCss) {
     return false;
   }
-  if (image.ObjectFit) {
+  if (reqObjectFitProperties.includes(image.ObjectFit)) {
     return false;
   }
-  if (image.PixelArtScaling) {
+  if (reqPixelScaling.includes(image.PixelArtScaling)) {
     return false;
   }
-  if (image.SrcSetDensityDescriptor) {
+  if (srcSetPattern.test(image.SrcSetDensityDescriptor)) {
     return false;
   }
   return true;
