@@ -84,9 +84,11 @@ function isCandidate(image) {
   if (reqObjectFitProperties.includes(image.ObjectFit)) {
     return false;
   }
+  // Check if pixel art scaling is used.
   if (reqPixelScaling.includes(image.ImageRendering)) {
     return false;
   }
+  // Check if density descriptor is used.
   if (getDensityDescriptor.test(image.srcset)) {
     return false;
   }
