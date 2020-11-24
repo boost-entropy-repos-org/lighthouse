@@ -73,7 +73,6 @@ async function generateErrorLHR() {
   /** @type {LH.BaseArtifacts} */
   const artifacts = {
     fetchTime: '2019-06-26T23:56:58.381Z',
-    FullPageScreenshot: null,
     LighthouseRunWarnings: [
       `Something went wrong with recording the trace over your page load. Please run Lighthouse again. (NO_FCP)`, // eslint-disable-line max-len
     ],

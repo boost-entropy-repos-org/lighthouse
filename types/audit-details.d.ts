@@ -68,7 +68,7 @@ declare global {
        */
       export interface FullPageScreenshot {
         type: 'full-page-screenshot';
-        fullPageScreenshot: LH.BaseArtifacts['FullPageScreenshot'];
+        fullPageScreenshot: LH.Artifacts['FullPageScreenshot'];
       }
 
       export interface Table {
