@@ -66,7 +66,7 @@ function isVisible(imageRect, viewportDimensions) {
  */
 function isCandidate(image) {
   const reqObjectFitProperties = ['cover', 'contain', 'scale-down', 'none'];
-  /** image-rendering solution for pixel art scaling. 
+  /** image-rendering solution for pixel art scaling.
    * https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look
   */
   const reqPixelScaling = ['pixelated', 'crisp-edges'];
