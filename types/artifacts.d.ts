@@ -433,10 +433,7 @@ declare global {
         isInShadowDOM: boolean;
         /** `object-fit` CSS property. */
         ObjectFit: string;
-        /** Image rendering propertry to validate pixel art scaling.
-         *  See https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look for
-         *  details.
-         */
+        /** `image-rendering` propertry. */
         ImageRendering: string;
         /** The size of the underlying image file in bytes. 0 if the file could not be identified. */
         resourceSize: number;
