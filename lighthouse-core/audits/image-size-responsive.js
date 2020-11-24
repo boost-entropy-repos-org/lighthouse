@@ -67,7 +67,8 @@ function isVisible(imageRect, viewportDimensions) {
 function isCandidate(image) {
   const reqObjectFitProperties = ['cover', 'contain', 'scale-down', 'none'];
   const reqPixelScaling = ['pixelated', 'crisp-edges'];
-  const srcSetPattern = / \d+(\.\d+)?x/;
+  // https://html.spec.whatwg.org/multipage/images.html#pixel-density-descriptor
+  const getDensityDescriptor = / \d+(\.\d+)?x/;
   if (image.displayedWidth <= 1 || image.displayedHeight <= 1) {
     return false;
   }
@@ -83,10 +84,10 @@ function isCandidate(image) {
   if (reqObjectFitProperties.includes(image.ObjectFit)) {
     return false;
   }
-  if (reqPixelScaling.includes(image.PixelArtScaling)) {
+  if (reqPixelScaling.includes(image.ImageRendering)) {
     return false;
   }
-  if (srcSetPattern.test(image.SrcSetDensityDescriptor)) {
+  if (getDensityDescriptor.test(image.srcset)) {
     return false;
   }
   return true;

@@ -121,7 +121,7 @@ describe('Images: size audit', () => {
     clientSize: [100, 100],
     naturalSize: [5, 5],
     props: {
-      PixelArtScaling: 'pixelated',
+      ImageRendering: 'pixelated',
     },
   });
 
@@ -130,7 +130,7 @@ describe('Images: size audit', () => {
     clientSize: [100, 100],
     naturalSize: [5, 5],
     props: {
-      SrcSetDensityDescriptor: ' 1x',
+      srcset: 'https://google.com/logo.png 1x',
     },
   });
 

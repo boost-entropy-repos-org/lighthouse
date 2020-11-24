@@ -433,15 +433,11 @@ declare global {
         isInShadowDOM: boolean;
         /** `object-fit` CSS property. */
         ObjectFit: string;
-        /** Pixel art scaling.
+        /** Image rendering propertry to validate pixel art scaling.
          *  See https://developer.mozilla.org/en-US/docs/Games/Techniques/Crisp_pixel_art_look for
          *  details.
          */
-        PixelArtScaling: string;
-        /** Image srcset density descriptor.
-         *  See https://html.spec.whatwg.org/multipage/images.html#pixel-density-descriptor
-         */
-        SrcSetDensityDescriptor: string;
+        ImageRendering: string;
         /** The size of the underlying image file in bytes. 0 if the file could not be identified. */
         resourceSize: number;
         /** The MIME type of the underlying image file. */

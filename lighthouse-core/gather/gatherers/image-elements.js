@@ -79,10 +79,8 @@ function getHTMLImages(allElements) {
       loading: element.loading,
       resourceSize: 0, // this will get overwritten below
       ObjectFit: computedStyle.getPropertyValue('object-fit'),
-      PixelArtScaling: computedStyle.getPropertyValue('image-rendering'),
+      ImageRendering: computedStyle.getPropertyValue('image-rendering'),
       isInShadowDOM: element.getRootNode() instanceof ShadowRoot,
-      // https://html.spec.whatwg.org/multipage/images.html#pixel-density-descriptor
-      SrcSetDensityDescriptor: element.srcset,
       // @ts-expect-error - getNodeDetails put into scope via stringification
       ...getNodeDetails(element),
     };
@@ -129,8 +127,7 @@ function getCSSImages(allElements) {
       isPicture: false,
       isInShadowDOM: element.getRootNode() instanceof ShadowRoot,
       ObjectFit: '',
-      PixelArtScaling: style.getPropertyValue('image-rendering'),
-      SrcSetDensityDescriptor: '',
+      ImageRendering: style.getPropertyValue('image-rendering'),
       resourceSize: 0, // this will get overwritten below
       // @ts-expect-error - getNodeDetails put into scope via stringification
       ...getNodeDetails(element),

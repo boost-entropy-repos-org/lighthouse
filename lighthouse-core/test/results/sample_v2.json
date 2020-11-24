@@ -638,8 +638,8 @@
         ],
         "items": [
           {
-            "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
-            "displayedAspectRatio": "480 x 57\n        (8.42)",
+            "url": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?iar1",
+            "displayedAspectRatio": "120 x 15\n        (8.00)",
             "actualAspectRatio": "480 x 318\n        (1.51)",
             "doRatiosMatch": false
           }
@@ -683,13 +683,22 @@
         ],
         "items": [
           {
-            "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
-            "elidedUrl": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
-            "displayedSize": "480 x 318",
+            "url": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?isr1",
+            "elidedUrl": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?isr1",
+            "displayedSize": "4800 x 3180",
             "actualSize": "480 x 318",
             "actualPixels": 152640,
-            "expectedSize": "960 x 636",
-            "expectedPixels": 610560
+            "expectedSize": "9600 x 6360",
+            "expectedPixels": 61056000
+          },
+          {
+            "url": "http://localhost:54701/dobetterweb/lighthouse-rotating.gif",
+            "elidedUrl": "http://localhost:54701/dobetterweb/lighthouse-rotating.gif",
+            "displayedSize": "811 x 462",
+            "actualSize": "811 x 462",
+            "actualPixels": 374682,
+            "expectedSize": "1622 x 924",
+            "expectedPixels": 1498728
           }
         ]
       }
@@ -2051,9 +2060,23 @@
         ],
         "items": [
           {
-            "url": "http://localhost:10200/dobetterweb/lighthouse-480x318.jpg",
+            "url": "blob:http://localhost:54701/90917951-7109-447d-b4bc-297ab3c55839",
             "node": {
-              "type": "node"
+              "type": "node",
+              "path": "3,HTML,1,BODY,63,IMG",
+              "selector": "body > img",
+              "nodeLabel": "img",
+              "snippet": "<img src=\"blob:http://localhost:54701/90917951-7109-447d-b4bc-297ab3c55839\">"
+            }
+          },
+          {
+            "url": "filesystem:http://localhost:54701/temporary/empty-0.9684948708453343.png",
+            "node": {
+              "type": "node",
+              "path": "3,HTML,1,BODY,72,IMG",
+              "selector": "body > img",
+              "nodeLabel": "img",
+              "snippet": "<img src=\"filesystem:http://localhost:54701/temporary/empty-0.9684948708453343.png\">"
             }
           }
         ]
@@ -3473,14 +3496,54 @@
       "scoreDisplayMode": "numeric",
       "numericValue": 0,
       "numericUnit": "millisecond",
-      "displayValue": "",
+      "displayValue": "Potential savings of 49 KiB",
       "warnings": [],
       "details": {
         "type": "opportunity",
-        "headings": [],
-        "items": [],
+        "headings": [
+          {
+            "key": "url",
+            "valueType": "thumbnail",
+            "label": ""
+          },
+          {
+            "key": "url",
+            "valueType": "url",
+            "label": "URL"
+          },
+          {
+            "key": "totalBytes",
+            "valueType": "bytes",
+            "label": "Resource Size"
+          },
+          {
+            "key": "wastedBytes",
+            "valueType": "bytes",
+            "label": "Potential Savings"
+          }
+        ],
+        "items": [
+          {
+            "url": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?iar1",
+            "totalBytes": 24620,
+            "wastedBytes": 22619,
+            "wastedPercent": 91.87426297169812
+          },
+          {
+            "url": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?iar2",
+            "totalBytes": 24620,
+            "wastedBytes": 13950,
+            "wastedPercent": 56.66273584905661
+          },
+          {
+            "url": "http://localhost:54701/dobetterweb/lighthouse-480x318.jpg?isr2",
+            "totalBytes": 24620,
+            "wastedBytes": 13950,
+            "wastedPercent": 56.66273584905661
+          }
+        ],
         "overallSavingsMs": 0,
-        "overallSavingsBytes": 0
+        "overallSavingsBytes": 50519
       }
     },
     "efficient-animated-content": {
@@ -6805,6 +6868,7 @@
         "audits[unminified-javascript].details.headings[0].label",
         "audits[uses-webp-images].details.headings[1].label",
         "audits[uses-text-compression].details.headings[0].label",
+        "audits[uses-responsive-images].details.headings[1].label",
         "audits[legacy-javascript].details.headings[0].label",
         "audits[geolocation-on-start].details.headings[0].text",
         "audits[no-document-write].details.headings[0].text",
@@ -7608,6 +7672,7 @@
         "audits[unminified-javascript].details.headings[2].label",
         "audits[uses-webp-images].details.headings[3].label",
         "audits[uses-text-compression].details.headings[2].label",
+        "audits[uses-responsive-images].details.headings[3].label",
         "audits[legacy-javascript].details.headings[2].label"
       ],
       "lighthouse-core/audits/byte-efficiency/unminified-css.js | title": [
@@ -7643,6 +7708,12 @@
         },
         {
           "values": {
+            "wastedBytes": 50519
+          },
+          "path": "audits[uses-responsive-images].displayValue"
+        },
+        {
+          "values": {
             "wastedBytes": 21205
           },
           "path": "audits[legacy-javascript].displayValue"
@@ -7667,7 +7738,8 @@
         "audits[uses-webp-images].description"
       ],
       "lighthouse-core/lib/i18n/i18n.js | columnResourceSize": [
-        "audits[uses-webp-images].details.headings[2].label"
+        "audits[uses-webp-images].details.headings[2].label",
+        "audits[uses-responsive-images].details.headings[2].label"
       ],
       "lighthouse-core/audits/byte-efficiency/uses-optimized-images.js | title": [
         "audits[uses-optimized-images].title"
