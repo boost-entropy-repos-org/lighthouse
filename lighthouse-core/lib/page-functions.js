@@ -450,8 +450,6 @@ function wrapRequestIdleCallback(cpuSlowdownMultiplier) {
  * @param {HTMLElement} element
  */
 function getNodeDetailsImpl(element) {
-  element = element instanceof ShadowRoot ? element.host : element;
-
   // This bookkeeping is for the FullPageScreenshot gatherer.
   if (!window.__lighthouseNodesDontTouchOrAllVarianceGoesAway) {
     window.__lighthouseNodesDontTouchOrAllVarianceGoesAway = {
@@ -480,13 +478,14 @@ function getNodeDetailsImpl(element) {
     window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.elementToLhId.set(element, lhId);
   }
 
+  const htmlElement = element instanceof ShadowRoot ? element.host : element;
   const details = {
     lhId,
     devtoolsNodePath: getNodePath(element),
-    selector: getNodeSelector(element),
-    boundingRect: getBoundingClientRect(element),
+    selector: getNodeSelector(htmlElement),
+    boundingRect: getBoundingClientRect(htmlElement),
     snippet: getOuterHTMLSnippet(element),
-    nodeLabel: getNodeLabel(element),
+    nodeLabel: getNodeLabel(htmlElement),
   };
 
   return details;
