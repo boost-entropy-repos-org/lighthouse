@@ -98,7 +98,7 @@ class ImageAspectRatio extends Audit {
       // - filter out images that don't have following properties:
       //   networkRecord, width, height, images that use `object-fit`: `cover` or `contain`
       // - filter all svgs as they have no natural dimensions to audit
-      // - filter out images that have undefined naturalWidth or naturalHeight
+      // - filter out images that have falsy naturalWidth or naturalHeight
       return !image.isCss &&
         image.mimeType &&
         image.mimeType !== 'image/svg+xml' &&

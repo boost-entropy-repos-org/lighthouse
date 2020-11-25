@@ -119,7 +119,7 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
         continue;
       }
 
-      // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
+      // If naturalHeight or naturalWidth are falsy, information is not valid, skip.
       if (!image.naturalWidth || !image.naturalHeight) continue;
 
       const processed = UsesResponsiveImages.computeWaste(image, ViewportDimensions);

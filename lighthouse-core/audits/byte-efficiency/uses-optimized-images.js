@@ -97,7 +97,7 @@ class UsesOptimizedImages extends ByteEfficiencyAudit {
           continue;
         }
 
-        // If naturalHeight or naturalWidth are undefined, information is not valid, skip.
+        // If naturalHeight or naturalWidth are falsy, information is not valid, skip.
         if (!imageElement.naturalHeight || !imageElement.naturalWidth) continue;
 
         jpegSize = UsesOptimizedImages.estimateJPEGSizeFromDimensions(imageElement);
