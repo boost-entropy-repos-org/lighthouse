@@ -196,8 +196,6 @@ describe('Page uses responsive images', () => {
     });
 
     assert.equal(auditResult.items.length, 0);
-    // Images with non valid naturalWidth or naturalHeight are ignored.
-    assert.equal(auditResult.warnings.length, 0);
   });
 
   it('de-dupes images', () => {

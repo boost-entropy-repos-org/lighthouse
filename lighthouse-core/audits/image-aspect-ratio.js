@@ -56,7 +56,7 @@ class ImageAspectRatio extends Audit {
 
   /**
    * @param {WellDefinedImage} image
-   * @return {LH.IcuMessage|{url: string, displayedAspectRatio: string, actualAspectRatio: string, doRatiosMatch: boolean}}
+   * @return {{url: string, displayedAspectRatio: string, actualAspectRatio: string, doRatiosMatch: boolean}}
    */
   static computeAspectRatios(image) {
     const url = URL.elideDataURI(image.src);
@@ -65,11 +65,6 @@ class ImageAspectRatio extends Audit {
 
     const targetDisplayHeight = image.displayedWidth / actualAspectRatio;
     const doRatiosMatch = Math.abs(targetDisplayHeight - image.displayedHeight) < THRESHOLD_PX;
-
-    if (!Number.isFinite(actualAspectRatio) ||
-      !Number.isFinite(displayedAspectRatio)) {
-      return str_(UIStrings.warningCompute, {url});
-    }
 
     return {
       url,
@@ -88,8 +83,6 @@ class ImageAspectRatio extends Audit {
   static audit(artifacts) {
     const images = artifacts.ImageElements;
 
-    /** @type {LH.IcuMessage[]} */
-    const warnings = [];
     /** @type {Array<{url: string, displayedAspectRatio: string, actualAspectRatio: string, doRatiosMatch: boolean}>} */
     const results = [];
     images.filter(image => {
@@ -110,10 +103,6 @@ class ImageAspectRatio extends Audit {
     }).forEach(image => {
       const wellDefinedImage = /** @type {WellDefinedImage} */ (image);
       const processed = ImageAspectRatio.computeAspectRatios(wellDefinedImage);
-      if (i18n.isIcuMessage(processed)) {
-        warnings.push(processed);
-        return;
-      }
 
       if (!processed.doRatiosMatch) results.push(processed);
     });
@@ -128,7 +117,6 @@ class ImageAspectRatio extends Audit {
 
     return {
       score: Number(results.length === 0),
-      warnings,
       details: Audit.makeTableDetails(headings, results),
     };
   }

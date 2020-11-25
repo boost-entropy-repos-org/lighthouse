@@ -14,7 +14,6 @@
 'use strict';
 
 const ByteEfficiencyAudit = require('./byte-efficiency-audit.js');
-const Sentry = require('../../lib/sentry.js');
 const URL = require('../../lib/url-shim.js');
 const i18n = require('../../lib/i18n/i18n.js');
 
@@ -49,7 +48,7 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
   /**
    * @param {LH.Artifacts.ImageElement} image
    * @param {LH.Artifacts.ViewportDimensions} ViewportDimensions
-   * @return {null|Error|LH.Audit.ByteEfficiencyItem};
+   * @return {null|LH.Audit.ByteEfficiencyItem};
    */
   static computeWaste(image, ViewportDimensions) {
     // Nothing can be done without network info.
@@ -86,10 +85,6 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
     const totalBytes = image.resourceSize;
     const wastedBytes = Math.round(totalBytes * wastedRatio);
 
-    if (!Number.isFinite(wastedRatio)) {
-      return new Error(`Invalid image sizing information ${url}`);
-    }
-
     return {
       url,
       totalBytes,
@@ -105,9 +100,6 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
   static audit_(artifacts) {
     const images = artifacts.ImageElements;
     const ViewportDimensions = artifacts.ViewportDimensions;
-
-    /** @type {string[]} */
-    const warnings = [];
     /** @type {Map<string, LH.Audit.ByteEfficiencyItem>} */
     const resultsMap = new Map();
     for (const image of images) {
@@ -124,12 +116,6 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
 
       const processed = UsesResponsiveImages.computeWaste(image, ViewportDimensions);
       if (!processed) continue;
-
-      if (processed instanceof Error) {
-        warnings.push(processed.message);
-        Sentry.captureException(processed, {tags: {audit: this.meta.id}, level: 'warning'});
-        continue;
-      }
 
       // Don't warn about an image that was later used appropriately
       const existing = resultsMap.get(processed.url);
@@ -150,7 +136,6 @@ class UsesResponsiveImages extends ByteEfficiencyAudit {
     ];
 
     return {
-      warnings,
       items,
       headings,
     };

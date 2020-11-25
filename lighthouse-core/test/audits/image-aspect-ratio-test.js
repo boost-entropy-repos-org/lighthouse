@@ -31,11 +31,6 @@ describe('Images: aspect-ratio audit', () => {
       });
 
       assert.strictEqual(result.score, data.score, 'score does not match');
-      if (data.warning) {
-        assert.strictEqual(result.warnings[0], data.warning);
-      } else {
-        assert.ok(!result.warnings || result.warnings.length === 0, 'should not have warnings');
-      }
     });
   }
 
@@ -164,6 +159,5 @@ describe('Images: aspect-ratio audit', () => {
     });
 
     assert.strictEqual(result.score, 1, 'score does not match');
-    assert.equal(result.warnings.length, 0, 'should not have warnings');
   });
 });
