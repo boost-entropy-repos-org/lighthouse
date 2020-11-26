@@ -325,10 +325,7 @@ declare global {
 
   interface Window {
     /** Used by FullPageScreenshot gatherer. */
-    __lighthouseNodesDontTouchOrAllVarianceGoesAway: {
-      lhIdToElements: Map<string, HTMLElement>;
-      elementToLhId: Map<HTMLElement, string>;
-    };
+    __lighthouseNodesDontTouchOrAllVarianceGoesAway: Map<HTMLElement, string>;
     __lighthouseExecutionContextId?: number;
   }
 }

@@ -452,10 +452,7 @@ function wrapRequestIdleCallback(cpuSlowdownMultiplier) {
 function getNodeDetailsImpl(element) {
   // This bookkeeping is for the FullPageScreenshot gatherer.
   if (!window.__lighthouseNodesDontTouchOrAllVarianceGoesAway) {
-    window.__lighthouseNodesDontTouchOrAllVarianceGoesAway = {
-      lhIdToElements: new Map(),
-      elementToLhId: new Map(),
-    };
+    window.__lighthouseNodesDontTouchOrAllVarianceGoesAway = new Map();
   }
 
   // Create an id that will be unique across all execution contexts.
@@ -465,17 +462,16 @@ function getNodeDetailsImpl(element) {
   // We also dedupe this id so that details collected for an element within the same
   // pass and execution context will share the same id. Not technically important, but
   // cuts down on some duplication.
-  let lhId = window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.elementToLhId.get(element);
+  let lhId = window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.get(element);
   if (!lhId) {
     lhId = [
       window.__lighthouseExecutionContextId !== undefined ?
         window.__lighthouseExecutionContextId :
         'page',
-      window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.elementToLhId.size,
+      window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.size,
       element.tagName,
     ].join('-');
-    window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.lhIdToElements.set(lhId, element);
-    window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.elementToLhId.set(element, lhId);
+    window.__lighthouseNodesDontTouchOrAllVarianceGoesAway.set(element, lhId);
   }
 
   const htmlElement = element instanceof ShadowRoot ? element.host : element;
