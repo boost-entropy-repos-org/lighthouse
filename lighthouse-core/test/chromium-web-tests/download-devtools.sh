@@ -12,6 +12,12 @@ if [ -d "$DEVTOOLS_PATH" ]
 then
   echo "Directory $DEVTOOLS_PATH already exists."
   cd "$DEVTOOLS_PATH"
+
+  # Update to keep current
+  git pull -f origin master
+  gclient sync --nohooks
+  gn gen out/Default
+
   exit 0
 fi
 
