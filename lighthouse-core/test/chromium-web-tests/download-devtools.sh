@@ -15,8 +15,7 @@ then
 
   # Update to keep current
   git pull -f origin master
-  gclient sync --nohooks
-  gn gen out/Default
+  gclient sync
 
   exit 0
 fi
