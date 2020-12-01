@@ -1,5 +1,7 @@
 # Code of Conduct
 
+test -e3dit
+
 ## Our Pledge
 
 In the interest of fostering an open and welcoming environment, we as
